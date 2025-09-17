@@ -96,3 +96,19 @@ class ApiFootball():
         response = requests.request("GET", url, headers=headers, data=payload, params=params)
         res = response.json()
         return res
+    
+    def get_injuries(self, league_id=None, season=None, fixture_id=None):
+        url = self.base_url + f"injuries?"
+        payload={}
+        headers = {
+          'x-apisports-key': self.api_key,
+        }
+        params = {
+            'league': league_id,
+            'season': season,
+            'fixture': fixture_id
+        }
+
+        response = requests.request("GET", url, headers=headers, data=payload, params=params)
+        res = response.json()
+        return res
