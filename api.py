@@ -16,7 +16,7 @@ class ApiFootball():
         url = self.base_url + "leagues"
         payload={}
         headers = {
-          'x-apisports-key': self.api_key
+            'x-apisports-key': self.api_key
         }
         params = {
             'season': season,
@@ -32,15 +32,16 @@ class ApiFootball():
         res = response.json()
         return res
     
-    def get_fixtures(self, league_id=None, season=None):
+    def get_fixtures(self, league_id=None, season=None, fixture_id=None):
         url = self.base_url + "fixtures?"
         payload={}
         headers = {
-          'x-apisports-key': self.api_key
+            'x-apisports-key': self.api_key
         }
         params = {
             'league': league_id,
-            'season': season
+            'season': season,
+            'id': fixture_id
         }
 
         response = requests.request("GET", url, headers=headers, data=payload, params=params)
@@ -51,7 +52,7 @@ class ApiFootball():
         url = self.base_url + "teams?"
         payload={}
         headers = {
-          'x-apisports-key': self.api_key,
+            'x-apisports-key': self.api_key,
         }
         params = {
             'league': league_id,
@@ -67,7 +68,7 @@ class ApiFootball():
         url = self.base_url + f"fixtures/statistics?"
         payload={}
         headers = {
-          'x-apisports-key': self.api_key,
+            'x-apisports-key': self.api_key,
         }
         params = {
             'fixture': fixture_id,
@@ -82,7 +83,7 @@ class ApiFootball():
         url = self.base_url + f"fixtures/headtohead?"
         payload={}
         headers = {
-          'x-apisports-key': self.api_key,
+            'x-apisports-key': self.api_key,
         }
         params = {
             'h2h': '-'.join(map(str, teams_id)),
@@ -101,7 +102,7 @@ class ApiFootball():
         url = self.base_url + f"injuries?"
         payload={}
         headers = {
-          'x-apisports-key': self.api_key,
+            'x-apisports-key': self.api_key,
         }
         params = {
             'league': league_id,
@@ -110,5 +111,16 @@ class ApiFootball():
         }
 
         response = requests.request("GET", url, headers=headers, data=payload, params=params)
+        res = response.json()
+        return res
+    
+    def get_status(self):
+        url = self.base_url + f"status"
+        payload={}
+        headers = {
+            'x-apisports-key': self.api_key,
+        }
+
+        response = requests.request("GET", url, headers=headers, data=payload)
         res = response.json()
         return res
